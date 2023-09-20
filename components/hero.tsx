@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import { myFont } from "@/lib/fonts";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
-import ImageLoad from "./image-load";
+import ImageLoad from "@/components/image-load";
+import Status from "@/components/status";
 
 const Hero = () => {
   return (
@@ -37,6 +38,7 @@ const Hero = () => {
             officia ex ad?
           </motion.p>
         </motion.div>
+        <Status />
       </div>
     </div>
   );
