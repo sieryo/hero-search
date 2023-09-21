@@ -1,26 +1,32 @@
-import {motion} from 'framer-motion'
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import Image from "next/image";
 
-const ImageLoad = () => {
-    return (
+type imageUrlHero = {
+  name: string;
+  image: string;
+};
+
+const ImageLoad = (hero: imageUrlHero) => {
+  return (
+    <div className="z-10 p-4">
       <motion.div
-        className="w-[350px] bg-gradient-to-b z-10 from-slate-500 via-slate-200 to-transparent p-4"
+        className="md:w-[350px] w-[280px] bg-gradient-to-b  from-[#00223e] via-slate-200 to-transparent p-4"
         initial={{ x: -200, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0, duration: 0.5, ease: "backOut" }}
+        transition={{ delay: 0.5, duration: 1, ease: "backOut" }}
       >
         <div>
           <Image
-            src="/bruno.webp"
+            src={hero.image}
             width={350}
             height={400}
-            alt="Bruno"
-            loading="eager"
+            alt={hero.name}
             priority
           />
         </div>
       </motion.div>
-    );
-}
- 
+    </div>
+  );
+};
+
 export default ImageLoad;

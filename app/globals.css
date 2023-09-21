@@ -5,7 +5,18 @@
 html,body,:root {
   height: 100%;
 }
- 
+.clip-triangle {
+  clip-path: polygon(0 0, 0 100%, 100% 43%);
+}
+.only-tes::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-left: 700px solid white;
+  background-color: transparent;
+  top: 0;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -69,7 +80,7 @@ html,body,:root {
     --ring: 212.7 26.8% 83.9%;
   }
 }
- 
+  
 @layer base {
   * {
     @apply border-border;
