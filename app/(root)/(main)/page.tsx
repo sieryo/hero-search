@@ -4,19 +4,11 @@ import SearchHero from "@/components/search-hero";
 import { HeroType } from "@/components/hero";
 import { getHero, getHeroes } from "@/sanity/actions";
 
-const getAllHero = async () => {
-  const data = await fetch("http://localhost:5000/heroes", {
-    cache: "no-store",
-  });
-  return data.json();
-};
 export default async function Home({
   searchParams,
 }: {
   searchParams: { hero: string | undefined };
 }) {
-  const allHero = await getAllHero();
-
   const heroes = await getHeroes({
     hero: "",
   });
@@ -32,7 +24,7 @@ export default async function Home({
         <Hero {...dataHero} />
       )}
       <div className=" min-h-[1000px] md:pt-10 pt-[100px]   border-4">
-        <SearchHero {...allHero} />
+        <SearchHero {...heroes} />
         <div className="flex justify-center">
           <div className="md:p-10 p-3 flex gap-6 md:justify-start flex-wrap justify-center">
             {heroes.map((hero: HeroType) => (
