@@ -51,6 +51,7 @@ const SearchHero = ({ heroes }: Data) => {
   const [role, setRole] = useState("");
   const [filteredHeroes, setFilteredHeroes] = useState<CardType[]>(heroes);
   const [isVisible, setIsVisible] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setIsVisible((prev) => !prev);
@@ -63,6 +64,12 @@ const SearchHero = ({ heroes }: Data) => {
 
   const handleRole = (newRole : string) => {
     setRole(newRole)
+    setLoading(true)
+
+  }
+  const handleAnimation = () => {
+    setIsVisible(true)
+    setLoading(false)
   }
   const handleSelectClick = (event : any) => {
     // Prevent click event from propagating to elements underneath
@@ -78,11 +85,11 @@ const SearchHero = ({ heroes }: Data) => {
           </SelectTrigger>
           <SelectContent >
             {roles.map((roleItem) => (
-            <SelectItem key={roleItem.name}onSelectCapture={() => console.log('adad')} className=" pointer-events-auto" value={roleItem.role}>
+            <SelectItem key={roleItem.name} className={cn(" mt-2 pointer-events-auto cursor-pointer hover:!bg-[#0073cf] hover:!text-white ", roleItem.role === role && "!bg-zinc-900/90 !text-white")} value={roleItem.role}>
               <button
             onClick={() => handleRole(roleItem.role)}
             className={cn(
-              "capitalize z-40",
+              "capitalize z-40 ",
               roleItem.role === role && " text-[#0073cf]"
             )}
             key={roleItem.name}
@@ -112,12 +119,12 @@ const SearchHero = ({ heroes }: Data) => {
         <AnimatePresence mode="wait">
           {isVisible && (
             <motion.div
-              className="md:p-10 p-3 flex gap-6 md:justify-start flex-wrap justify-center"
+              className={cn("md:p-10 p-3 flex gap-6 md:justify-start flex-wrap justify-center pointer-events-auto", loading && "pointer-events-none")}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0,  }}
-              exit={{ opacity: 0, y: 0, pointerEvents: 'none' }}
+              exit={{ opacity: 0, y: 0, }}
               transition={{ duration: 0.5 }}
-              onAnimationComplete={() => setIsVisible(true)}
+              onAnimationComplete={() => handleAnimation() }
             >
               {filteredHeroes.map((hero) => (
                 <div key={hero.name}>
