@@ -56,7 +56,7 @@
       type: 'string',
       validation: (Rule: any) => Rule.required(),
       options: {
-        list: ['tank','fighter','assassin','marskman','mage','support']
+        list: ['tank','fighter','assassin','marksman','mage','support']
       }
     }
 

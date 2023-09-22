@@ -6,21 +6,22 @@ interface GetHeroesParams {
     hero: string | undefined
 }
 
-export const getHeroes = async (params : GetHeroesParams) => {
-    const {hero} = params;
+interface GetHeroParams {
+    hero: string | undefined
 
+}
+
+export const getHeroes = async (params : GetHeroesParams) => {
+    const {hero,} = params;
     try {
         const heroes = await readClient.fetch(
             groq`${buildQuery({
                  type: 'hero',
                  hero,
             })}{
-                _id,
+                
                 name,
-                durability,
-                dayaSerang,
-                efekCrowdControl,
-                tingkatKesulitan,
+               
                 "image" : image.asset->url,
                 role
             }`
@@ -31,7 +32,7 @@ export const getHeroes = async (params : GetHeroesParams) => {
     }
 }
 
-export const getHero = async (params: GetHeroesParams) => {
+export const getHero = async (params: GetHeroParams) => {
     let {hero} = params;
 
     if (!hero) {

@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { motion, cubicBezier } from "framer-motion";
 import ImageLoad from "@/components/image-load";
 import Status from "@/components/status";
+import Link from "next/link";
 
 export type HeroType = {
   name: string;
@@ -15,19 +16,23 @@ export type HeroType = {
   efekCrowdControl: number;
   tingkatKesulitan: number;
   image: string;
+  role: string;
 };
 
 const Hero = (hero: HeroType) => {
   return (
-    <div className=" md:p-20 flex gap-6 max-lg:items-center max-lg:flex-col relative">
+    <div className="  flex gap-6 max-lg:items-center max-lg:flex-col relative">
       <motion.div
-        className="w-full absolute top-[120px] left-0 "
-        initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
+        className="w-full absolute h-full top-[0px] left-[0px] -z-10 "
+        initial={{ height: 0 }}
+        whileInView={{ height: "100%" }}
         viewport={{ once: true }}
         transition={{ delay: 1.2, duration: 1, ease: "linear" }}
       >
-        <Separator className="bg-black/40" />
+        <Separator
+          className=" bg-[#0073cf] rounded-full shadow-xl"
+          orientation="vertical"
+        />
       </motion.div>
       <ImageLoad {...hero} />
       <div className="md:p-10 p-3">
@@ -53,6 +58,9 @@ const Hero = (hero: HeroType) => {
           </motion.p>
         </motion.div>
         <Status {...hero} />
+        <Link className="p-10" href="/heroes">
+          Heroes List
+        </Link>
       </div>
     </div>
   );

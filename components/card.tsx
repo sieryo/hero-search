@@ -1,41 +1,40 @@
-"use client";
-
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { myFont } from "@/lib/fonts";
 import Link from "next/link";
 
-type Card = {
+export type CardType = {
   image: string;
   name: string;
+  role: string;
 };
 
 const variants = {
   hidden: {
     opacity: 0,
+    y: -20,
   },
   visible: {
     opacity: 1,
+    y: 0,
   },
 };
 
-const Card = (hero: Card) => {
+const Card = (hero: CardType) => {
   return (
-    <Link href={`/?hero=${hero.name}`} target="_top">
-      <motion.div
-        variants={variants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="  md:w-[200px] md:h-[300px]  w-[150px] h-[200px] bg-black/20 relative"
+    <Link href={`/heroes/${hero.name}`} target="_top">
+      <div
+        className={cn(
+          "  md:w-[200px] md:h-[300px]  w-[150px] h-[200px] bg-black/20 relative"
+        )}
       >
         <Image
           src={hero.image}
           fill
           alt="heroes"
           className=" object-cover object-top"
+          sizes="90"
+          priority
         />
         <div
           className={cn(
@@ -45,7 +44,7 @@ const Card = (hero: Card) => {
         >
           {hero.name}
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
 };
