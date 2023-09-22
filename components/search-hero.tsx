@@ -96,7 +96,7 @@ const SearchHero = ({ heroes }: Data) => {
         <div className="flex gap-5 max-md:hidden">
           {roles.map((roleItem) => (
             <button
-              onClick={() =>console.log(roleItem.role) }
+              onClick={() =>handleRole(roleItem.role) }
               className={cn(
                 "capitalize",
                 roleItem.role === role && " text-[#0073cf]"
