@@ -52,7 +52,15 @@ export const getHero = async (params: GetHeroParams) => {
                 description,
                 tingkatKesulitan,
                 "image" : image.asset->url,
-                role
+                role,
+                skills[0...6]->{
+                    id,
+                    name,
+                    type,
+                    description,
+                    "image" : image.asset->url
+                    
+                }
             }`
         )
         return dataHero

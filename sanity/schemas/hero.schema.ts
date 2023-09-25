@@ -58,7 +58,13 @@
       options: {
         list: ['tank','fighter','assassin','marksman','mage','support']
       }
-    }
+    },
+    {
+      name: 'skills',
+      title: 'Skills',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'skill' }] }],
+    },
 
   ]
 }

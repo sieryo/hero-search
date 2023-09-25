@@ -22,7 +22,7 @@ export type HeroType = {
 const Hero = (hero: HeroType) => {
   return (
     <div className="  flex gap-6 max-lg:items-center max-lg:flex-col relative">
-      <motion.div
+      {/* <motion.div
         className="w-full absolute h-full top-[0px] left-[0px] -z-10 "
         initial={{ height: 0 }}
         whileInView={{ height: "100%" }}
@@ -30,10 +30,10 @@ const Hero = (hero: HeroType) => {
         transition={{ delay: 1.2, duration: 1, ease: "linear" }}
       >
         <Separator
-          className=" bg-[#0073cf] rounded-full shadow-xl"
+          className=" bg-gray-600 rounded-full shadow-xl"
           orientation="vertical"
         />
-      </motion.div>
+      </motion.div> */}
       <ImageLoad {...hero} />
       <div className="md:p-10 p-3">
         <motion.div
