@@ -15,6 +15,21 @@ type heroSkillType = {
   image: string;
 };
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
+
 const HeroSkills = ({ heroSkill }: { heroSkill: heroSkillType[] }) => {
   const [id, setId] = useState(1);
   const [visible, setVisible] = useState<Boolean>(true);
@@ -27,38 +42,56 @@ const HeroSkills = ({ heroSkill }: { heroSkill: heroSkillType[] }) => {
       <div className="relative">
         <motion.h1
           className={cn(
-            "text-[90px] pt-[100px]  w-[500px] origin-left ",
+            "text-[70px] md:text-[90px] pt-[100px]  max-w-[500px] origin-left ",
             myFont.className
           )}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          viewport={{ once: true }}
         >
           skills
         </motion.h1>
-        <div className="relative mt-16 bg-black/10 h-[150px] w-full flex items-center">
-          <div className="w-full absolute ">
+        <div className="relative mt-16 bg-black/10  h-[150px] w-full flex items-center">
+          <motion.div
+            className="w-full absolute"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{ duration: 1.5, delay: 0.9 }}
+            viewport={{ once: true }}
+          >
             <Separator className="bg-black/50" />
-          </div>
+          </motion.div>
           <div className="z-10 w-full flex lg:justify-between  justify-center">
-            <div className="flex md:gap-8 gap-2 lg:pl-[80px] ">
+            <motion.div
+              className="flex md:gap-8 gap-2 lg:pl-[80px] "
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               {heroSkill.map((skill) => (
-                <div className="flex items-center" key={skill.id}>
+                <motion.div
+                  className="flex items-center"
+                  key={skill.id}
+                  variants={item}
+                  viewport={{ once: true }}
+                >
                   <button
                     className={cn(
-                      "w-[70px] border border-black/30 p-1 transition-all delay-100  rounded-sm",
-                      skill.id === id && " border-black"
+                      "w-[85px] max-md:w-[58px] border hover:border-black border-black/30 p-1 transition-all delay-100  rounded-sm",
+                      skill.id === id && " border-black rounded-md"
                     )}
                     onClick={() => setId(skill.id)}
                   >
                     <SkillIcon {...skill} />
                   </button>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
             <div className="w-[500px]  h-[300px] relative mr-[20px] border border-black lg:block hidden ">
               <div className=" p-5">
-                <div className="absolute w-full h-full  bg-slate-700"></div>
+                <div className="absolute md:w-full w-[500px] h-full  bg-slate-700"></div>
               </div>
             </div>
           </div>
@@ -68,13 +101,21 @@ const HeroSkills = ({ heroSkill }: { heroSkill: heroSkillType[] }) => {
             .filter((skill) => skill.id === id)
             .map((skill) => (
               <div key={skill.id} className="md:p-7">
-                <span className=" text-black/75 uppercase">{skill.type}</span>
+                <motion.span
+                  className=" text-black/75 uppercase"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                >
+                  {skill.type}
+                </motion.span>
                 <motion.h2
                   className="text-2xl font-bold origin-bottom uppercase"
                   initial={{ scaleY: 0, opacity: 0 }}
                   whileInView={{ scaleY: 1, opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
                 >
                   {skill.name}
                 </motion.h2>

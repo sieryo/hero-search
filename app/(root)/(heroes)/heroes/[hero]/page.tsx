@@ -7,7 +7,7 @@ const HeroPage = async ({ params }: { params: { hero: string } }) => {
     hero: params.hero,
   });
   return (
-    <div>
+    <div className=" ">
       <div className="min-h-[400px] flex justify-center items-center">
         <Hero {...dataHero} />
       </div>

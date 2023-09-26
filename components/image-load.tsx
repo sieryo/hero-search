@@ -22,6 +22,7 @@ const ImageLoad = (hero: imageUrlHero) => {
             height={400}
             alt={hero.name}
             priority
+            className=""
           />
         </div>
       </motion.div>

@@ -7,7 +7,7 @@ interface SkillIcon {
 
 const SkillIcon = (skill: SkillIcon) => {
   return (
-    <div className="border w-[80px] border-black/30  p-1 md:hover:border-slate-500 transition-all">
+    <div className="border w-full border-black/30 max-md:rounded-full max-md:p-[2px] p-1 rounded-full    transition-all">
       <Image
         src={skill.image}
         width={80}

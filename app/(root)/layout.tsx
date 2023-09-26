@@ -4,8 +4,10 @@ const mainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <div className="max-w-[1440px] mx-auto min-h-screen pt-16">
-        {children}
+      <div className="min-h-screen">
+        <div className="max-w-screen-2xl w-full mx-auto  pt-16 max-md:flex  max-md:items-center">
+          {children}
+        </div>
       </div>
     </>
   );
