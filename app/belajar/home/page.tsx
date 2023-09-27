@@ -1,5 +1,14 @@
+import React, { useState } from "react";
+import AnimatedCounter from "./Number";
+
 const HomePage = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <h1>
+        <AnimatedCounter />
+      </h1>
+    </div>
+  );
 };
 
 export default HomePage;
