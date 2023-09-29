@@ -12,26 +12,36 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { cn } from "@/lib/utils";
 
-const AddProduct = ({ brands }: { brands: Brand[] }) => {
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  brandId: number;
+};
+
+const UpdateProduct = ({
+  brands,
+  product,
+}: {
+  brands: Brand[];
+  product: Product;
+}) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [brand, setBrand] = useState("");
+  const [title, setTitle] = useState(product.title);
+  const [price, setPrice] = useState(product.price);
+  const [brand, setBrand] = useState(product.brandId);
 
   const router = useRouter();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleUpdate = async (e: SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
-    await axios.post("/api/products", {
+    await axios.patch(`/api/products/${product.id}`, {
       title,
       price: Number(price),
       brandId: Number(brand),
     });
-    setTitle("");
-    setPrice("");
-    setBrand("");
     router.refresh();
     setLoading(false);
 
@@ -44,12 +54,17 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
 
   return (
     <Dialog open={open}>
-      <button onClick={handleModal}>Open</button>
+      <button
+        className=" p-1 rounded-lg px-4 bg-blue-500 text-black"
+        onClick={handleModal}
+      >
+        Edit
+      </button>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add New Product</DialogTitle>
+          <DialogTitle>Edit</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdate}>
           <div className="form-control w-full">
             <label className="font-bold p-2">Product name</label>
             <input
@@ -65,7 +80,7 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
             <input
               type="text"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice(Number(e.target.value))}
               className="p-2 border block w-full"
               placeholder="Price"
             />
@@ -74,12 +89,9 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
             <label className="font-bold p-2">Brand</label>
             <select
               value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              onChange={(e) => setBrand(Number(e.target.value))}
               className="p-2 block w-full mb-3"
             >
-              <option value="" disabled selected>
-                Select Brand
-              </option>
               {brands.map((brand) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
@@ -99,12 +111,12 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
           <button
             type="submit"
             className={cn(
-              "ml-2 p-2 bg-green-500 transition-all",
-              loading && "bg-green-200"
+              "ml-2 p-2 bg-blue-500 transition-all",
+              loading && "bg-blue-200"
             )}
             disabled={loading}
           >
-            Save
+            Update
           </button>
         </form>
       </DialogContent>
@@ -112,4 +124,4 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

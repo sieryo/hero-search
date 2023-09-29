@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import AddProduct from "./add-product";
+import DeleteProduct from "./delete-product";
+import UpdateProduct from "./update-product";
 
 const prisma = new PrismaClient();
 const getProducts = async () => {
@@ -22,7 +24,9 @@ const getBrands = async () => {
 };
 
 const CrudPage = async () => {
-  const [products, brands] = await Promise.all([getProducts(), getBrands()]);
+  const products = await getProducts();
+  const brands = await getBrands();
+
   return (
     <div className="relative overflow-x-auto px-5 py-7">
       <AddProduct brands={brands} />
@@ -61,7 +65,10 @@ const CrudPage = async () => {
               </th>
               <td className="px-6 py-4">{product.price}</td>
               <td className="px-6 py-4">{product.brand.name}</td>
-              <td className="px-6 py-4">Edit</td>
+              <td className="px-6 py-4">
+                <UpdateProduct brands={brands} product={product} />
+                <DeleteProduct product={product} />
+              </td>
             </tr>
           ))}
         </tbody>
