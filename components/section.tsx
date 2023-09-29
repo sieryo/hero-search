@@ -1,5 +1,5 @@
 const Section = () => {
-    return (  );
-}
- 
+  return <div>sECtion</div>;
+};
+
 export default Section;
